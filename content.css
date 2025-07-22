@@ -5,3 +5,7 @@ div.top-nav {
     display: none;
 }
 
+nav.main-navigation-wrapper {
+    padding-bottom: 0px !important;
+}
+
