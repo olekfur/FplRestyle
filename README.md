@@ -21,7 +21,18 @@ A Chrome extension that enhances the Fantasy Premier League website with custom 
 
 ### Local Development Setup
 
-1. **Clone or download this repository**
+#### Option 1: Download from GitHub (Recommended for most users)
+
+1. **Download the extension files**
+   - Go to the GitHub repository page
+   - Click the green "Code" button
+   - Select "Download ZIP"
+   - Extract the ZIP file to a folder on your computer
+   - You should now have a folder called `FplRestyle` (or similar)
+
+#### Option 2: Using Git (for developers)
+
+1. **Clone the repository**
    ```bash
    git clone <repository-url>
    cd FplRestyle
