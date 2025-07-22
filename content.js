@@ -176,6 +176,20 @@ const styles = {
         display: none !important;
     }
 
+    /* Hide team badge div and the breaks around it */
+
+    hr.rcijrz0:nth-child(4) {
+        display: none
+    }
+
+    div.rd5cco1:nth-child(5) {
+        display: none
+    }
+
+    div.rcijrz0:nth-child(6) {
+        display: none
+    }
+
     /* Create a horizontal header with evenly spaced elements */
     /* Create a wrapper for the three elements we want horizontal */
     div._1tcyj2k0 {
@@ -220,6 +234,12 @@ const styles = {
     /* Add margin to the pitch container to push it down */
     div.t2sh1k5 {
         margin-top: 80px !important;
+    }
+
+    /* Center player icons to prevent them from stretching outsite the pitch  */
+    div._1k6tww11 {
+        justify-content: center;
+        column-gap: 5rem;
     }
   `,
 
