@@ -2,6 +2,16 @@
 
 A Chrome extension that enhances the Fantasy Premier League website with custom themes and improved UI. This extension restyles various pages of the FPL website to provide a better user experience.
 
+## Examples
+
+### My Team Page
+![My Team Page](my%20team.png)
+*The restyled My Team page with reversed column layout and improved visual hierarchy*
+
+### Transfers Page
+![Transfers Page](transfers.png)
+*Enhanced transfers interface with custom styling and improved user experience*
+
 ## Installation & Setup
 
 ### Prerequisites
