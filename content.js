@@ -273,17 +273,24 @@ function injectCSS(css) {
   document.head.appendChild(style);
 }
 
-// Function to remove all FPL restyle styles
-function removeAllFPLStyles() {
-  const existingStyles = document.querySelectorAll('style[data-fpl-restyle="true"]');
-  existingStyles.forEach(style => {
-    style.remove();
-  });
+// Function to update existing CSS without removing it first (prevents flicker)
+function updateCSS(css) {
+  let existingStyle = document.getElementById('fpl-restyle-styles');
   
-  // Also remove by ID as backup
-  const styleById = document.getElementById('fpl-restyle-styles');
-  if (styleById) {
-    styleById.remove();
+  if (existingStyle) {
+    // Update existing style element
+    existingStyle.textContent = css;
+  } else {
+    // Create new style element if none exists
+    injectCSS(css);
+  }
+}
+
+// Function to remove only page-specific styles (keep navigation hiding)
+function removePageStyles() {
+  const existingStyle = document.getElementById('fpl-restyle-styles');
+  if (existingStyle) {
+    existingStyle.remove();
   }
 }
 
@@ -291,27 +298,27 @@ function removeAllFPLStyles() {
 function injectStylesForCurrentPage() {
   const url = window.location.href;
   
-  // First, remove all existing FPL restyle styles
-  removeAllFPLStyles();
-  
   // Always inject global styles
-  injectCSS(styles.global);
+  let cssToInject = styles.global;
   
-  // Inject page-specific styles based on URL
+  // Add page-specific styles based on URL
   if (url.includes('/my-team') || url.endsWith('/my-team')) {
-    injectCSS(styles.myTeam);
+    cssToInject += styles.myTeam;
     console.log('FPL Restyle: Applied My Team page styles');
   }
   
   if (url.includes('/leagues') || url.includes('/league/')) {
-    injectCSS(styles.league);
+    cssToInject += styles.league;
     console.log('FPL Restyle: Applied League page styles');
   }
   
   if (url.includes('/transfers') || url.includes('/transfer/')) {
-    injectCSS(styles.transfers);
+    cssToInject += styles.transfers;
     console.log('FPL Restyle: Applied Transfers page styles');
   }
+  
+  // Update styles without removing them first (prevents flicker)
+  updateCSS(cssToInject);
 }
 
 // Run the injection when the page loads
@@ -326,7 +333,7 @@ let lastUrl = location.href;
 
 // Method 1: Listen for popstate events (back/forward buttons)
 window.addEventListener('popstate', () => {
-  setTimeout(handleUrlChange, 100);
+  setTimeout(handleUrlChange, 50); // Reduced delay
 });
 
 // Method 2: Listen for pushstate/replacestate (programmatic navigation)
@@ -335,12 +342,12 @@ const originalReplaceState = history.replaceState;
 
 history.pushState = function(...args) {
   originalPushState.apply(history, args);
-  setTimeout(handleUrlChange, 100);
+  setTimeout(handleUrlChange, 50); // Reduced delay
 };
 
 history.replaceState = function(...args) {
   originalReplaceState.apply(history, args);
-  setTimeout(handleUrlChange, 100);
+  setTimeout(handleUrlChange, 50); // Reduced delay
 };
 
 // Method 3: Poll for URL changes (fallback)
@@ -375,11 +382,8 @@ function handleUrlChange() {
   if (currentUrl !== lastUrl) {
     lastUrl = currentUrl;
     
-    // Remove all existing FPL restyle styles
-    removeAllFPLStyles();
-    
-    // Inject new styles for the new page
-    setTimeout(injectStylesForCurrentPage, 200);
+    // Update styles immediately without removing them first (prevents flicker)
+    injectStylesForCurrentPage();
     
     console.log('FPL Restyle: URL changed to', currentUrl);
   }
@@ -388,7 +392,7 @@ function handleUrlChange() {
 // Function to automatically apply filter changes on transfer page
 function setupAutoFilterApply() {
   // Only run on transfer pages
-  if (!location.href.includes('/transfers') && !location.href.includes('/transfer/')) {
+  if (!location.href.includes('/transfers')) {
     return;
   }
 
