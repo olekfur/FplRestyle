@@ -1,2 +1,7 @@
 /* FPL Restyle - Custom Styles for Fantasy Premier League */
 
+/* Hide Top Nav */
+div.top-nav {
+    display: none;
+}
+
