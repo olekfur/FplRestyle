@@ -136,12 +136,30 @@ function injectCSS(css) {
   const style = document.createElement('style');
   style.textContent = css;
   style.id = 'fpl-restyle-styles';
+  style.setAttribute('data-fpl-restyle', 'true');
   document.head.appendChild(style);
+}
+
+// Function to remove all FPL restyle styles
+function removeAllFPLStyles() {
+  const existingStyles = document.querySelectorAll('style[data-fpl-restyle="true"]');
+  existingStyles.forEach(style => {
+    style.remove();
+  });
+  
+  // Also remove by ID as backup
+  const styleById = document.getElementById('fpl-restyle-styles');
+  if (styleById) {
+    styleById.remove();
+  }
 }
 
 // Function to determine which styles to inject based on URL
 function injectStylesForCurrentPage() {
   const url = window.location.href;
+  
+  // First, remove all existing FPL restyle styles
+  removeAllFPLStyles();
   
   // Always inject global styles
   injectCSS(styles.global);
@@ -170,18 +188,66 @@ if (document.readyState === 'loading') {
   injectStylesForCurrentPage();
 }
 
-// Also run on navigation changes (for SPA behavior)
+// Better SPA detection for React sites
 let lastUrl = location.href;
-new MutationObserver(() => {
-  const url = location.href;
-  if (url !== lastUrl) {
-    lastUrl = url;
-    // Remove existing styles
-    const existingStyle = document.getElementById('fpl-restyle-styles');
-    if (existingStyle) {
-      existingStyle.remove();
-    }
-    // Inject new styles for the new page
-    setTimeout(injectStylesForCurrentPage, 100);
+
+// Method 1: Listen for popstate events (back/forward buttons)
+window.addEventListener('popstate', () => {
+  setTimeout(handleUrlChange, 100);
+});
+
+// Method 2: Listen for pushstate/replacestate (programmatic navigation)
+const originalPushState = history.pushState;
+const originalReplaceState = history.replaceState;
+
+history.pushState = function(...args) {
+  originalPushState.apply(history, args);
+  setTimeout(handleUrlChange, 100);
+};
+
+history.replaceState = function(...args) {
+  originalReplaceState.apply(history, args);
+  setTimeout(handleUrlChange, 100);
+};
+
+// Method 3: Poll for URL changes (fallback)
+setInterval(() => {
+  const currentUrl = location.href;
+  if (currentUrl !== lastUrl) {
+    handleUrlChange();
   }
-}).observe(document, {subtree: true, childList: true}); 
+}, 500);
+
+// Method 4: Watch for React router changes via DOM mutations
+const observer = new MutationObserver((mutations) => {
+  mutations.forEach((mutation) => {
+    if (mutation.type === 'childList') {
+      // Check if the URL changed
+      const currentUrl = location.href;
+      if (currentUrl !== lastUrl) {
+        handleUrlChange();
+      }
+    }
+  });
+});
+
+observer.observe(document.body, {
+  childList: true,
+  subtree: true
+});
+
+// Function to handle URL changes
+function handleUrlChange() {
+  const currentUrl = location.href;
+  if (currentUrl !== lastUrl) {
+    lastUrl = currentUrl;
+    
+    // Remove all existing FPL restyle styles
+    removeAllFPLStyles();
+    
+    // Inject new styles for the new page
+    setTimeout(injectStylesForCurrentPage, 200);
+    
+    console.log('FPL Restyle: URL changed to', currentUrl);
+  }
+} 
