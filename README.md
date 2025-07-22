@@ -148,4 +148,4 @@ To add styling for a new FPL page:
 
 ## Support
 
-For issues or questions, please create an issue in the repository. 
+For issues or questions, please create an issue in the repository. Or reach me on [Twitter/X](https://x.com/tripack91)
