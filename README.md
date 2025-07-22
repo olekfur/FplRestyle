@@ -1,6 +1,6 @@
 # FPL Restyle
 
-A Chrome extension that enhances the Fantasy Premier League website with custom themes and improved UI. This extension restyles various pages of the FPL website to provide a better user experience.
+A Chrome extension that enhances the Fantasy Premier League website with custom themes and improved UI. This extension moves columns on the team and transfer pages, makes filters auto-apply, and includes various small UI tweaks to provide a better user experience.
 
 ## Examples
 
