@@ -26,11 +26,107 @@ const styles = {
     /* Move chips section to bottom */
     ul.ocshmh0 {
         order: 999 !important;
-        margin-top: 20px !important;
-        padding: 15px !important;
-        background-color: #f5f5f5 !important;
+        margin-top: 10px !important;
+        padding: 25px !important;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        border-radius: 16px !important;
+        border: none !important;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 32px !important;
+        position: relative !important;
+        overflow: hidden !important;
+        justify-content: center !important;
+        align-items: stretch !important;
+    }
+
+    /* Style individual chip items */
+    ul.ocshmh0 > li {
+        background: rgba(255, 255, 255, 0.95) !important;
+        border-radius: 12px !important;
+        padding: 20px !important;
+        margin: 0 !important;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08) !important;
+        transition: all 0.3s ease !important;
+        position: relative !important;
+        z-index: 1 !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        flex: 1 !important;
+        max-width: 200px !important;
+    }
+
+    /* Hover effect for chip items */
+    ul.ocshmh0 > li:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
+        background: rgba(255, 255, 255, 1) !important;
+    }
+
+    /* Style the chip buttons */
+    ul.ocshmh0 button.lsstwu5 {
+        background: transparent !important;
+        border: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 16px !important;
+        width: 100% !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+    }
+
+    /* Style chip images */
+    ul.ocshmh0 img {
+        width: 48px !important;
+        height: 48px !important;
         border-radius: 8px !important;
-        border-top: 1px solid #ddd !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+        transition: transform 0.2s ease !important;
+    }
+
+    /* Hover effect for chip images */
+    ul.ocshmh0 li:hover img {
+        transform: scale(1.05) !important;
+    }
+
+    /* Style chip titles */
+    ul.ocshmh0 h4.lsstwu3 {
+        font-size: 18px !important;
+        font-weight: 600 !important;
+        color: #2d3748 !important;
+        margin: 0 !important;
+        flex: 1 !important;
+        text-align: left !important;
+    }
+
+    /* Style the "Play" button */
+    ul.ocshmh0 .lsstwu7 {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        color: white !important;
+        padding: 8px 16px !important;
+        border-radius: 20px !important;
+        font-size: 14px !important;
+        font-weight: 600 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+        box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3) !important;
+        transition: all 0.2s ease !important;
+        border: none !important;
+        outline: none !important;
+    }
+
+    /* Remove any border from the Play text span */
+    ul.ocshmh0 .lsstwua {
+        border: none !important;
+        outline: none !important;
+    }
+
+    /* Hover effect for Play button */
+    ul.ocshmh0 li:hover .lsstwu7 {
+        transform: scale(1.05) !important;
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4) !important;
     }
 
     /* Hide captain info section */
