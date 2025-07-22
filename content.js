@@ -1,6 +1,43 @@
 // FPL Restyle - JavaScript Content Script
 // This script injects CSS based on the current URL
 
+// IMMEDIATE NAVIGATION HIDING - Prevents flicker
+function hideNavigationImmediately() {
+  const navStyles = `
+    div.top-nav {
+        display: none !important;
+        visibility: hidden !important;
+    }
+
+    nav.main-navigation-wrapper {
+        padding-bottom: 0px !important;
+    }
+
+    /* Border Radius on Header */
+    header._7od82s0{
+        border-radius: 0px !important;
+    }
+
+    ul.xjr7e60 {
+        border-bottom-left-radius: 0px !important;
+        border-bottom-right-radius: 0px !important;
+    }
+
+    /* Background colour behind tiles */
+    div._16mjapo2 {
+        background-color: lightgray !important;
+    }
+  `;
+  
+  const style = document.createElement('style');
+  style.textContent = navStyles;
+  style.id = 'fpl-restyle-nav-hide';
+  document.head.appendChild(style);
+}
+
+// Hide navigation immediately to prevent flicker
+hideNavigationImmediately();
+
 // CSS styles for different pages
 const styles = {
   // My Team page styles
@@ -200,30 +237,30 @@ const styles = {
 
   // Global styles that apply to all FPL pages
   global: `
-    /* Global FPL styles can go here */
-    /* Hide Top Nav */
-    div.top-nav {
-        display: none;
-    }
+    // /* Global FPL styles can go here */
+    // /* Hide Top Nav */
+    // div.top-nav {
+    //     display: none;
+    // }
 
-    nav.main-navigation-wrapper {
-        padding-bottom: 0px !important;
-    }
+    // nav.main-navigation-wrapper {
+    //     padding-bottom: 0px !important;
+    // }
 
-    /* Border Radius on Header */
-    header._7od82s0{
-        border-radius: 0px !important;
-    }
+    // /* Border Radius on Header */
+    // header._7od82s0{
+    //     border-radius: 0px !important;
+    // }
 
-    ul.xjr7e60 {
-        border-bottom-left-radius: 0px !important;
-        border-bottom-right-radius: 0px !important;
-    }
+    // ul.xjr7e60 {
+    //     border-bottom-left-radius: 0px !important;
+    //     border-bottom-right-radius: 0px !important;
+    // }
 
-    /* Background colour behind tiles */
-    div._16mjapo2 {
-        background-color: lightgray !important;
-    }
+    // /* Background colour behind tiles */
+    // div._16mjapo2 {
+    //     background-color: lightgray !important;
+    // }
   `
 };
 
