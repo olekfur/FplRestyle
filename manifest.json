@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "FPL Restyle",
+  "version": "1.0.0",
+  "description": "A Chrome extension to restyle the Fantasy Premier League website with custom themes and improved UI",
+  "permissions": [
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://fantasy.premierleague.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://fantasy.premierleague.com/*"],
+      "css": ["content.css"],
+      "run_at": "document_end"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["styles/*", "images/*"],
+      "matches": ["https://fantasy.premierleague.com/*"]
+    }
+  ]
+} 
