@@ -1,36 +1,23 @@
-/* FPL Restyle - Custom Styles for Fantasy Premier League */
+/* FPL Restyle - CSS Template for URL-Specific Styling */
+/* 
+This file is now a template. The actual CSS injection is handled by content.js
+which injects styles based on the current URL.
 
-/* Hide Top Nav */
-div.top-nav {
-    display: none;
-}
+To add styles for different pages, edit the content.js file and add new style blocks
+to the 'styles' object. Each block should be named and contain the CSS for that page.
 
-nav.main-navigation-wrapper {
-    padding-bottom: 0px !important;
-}
+Example structure in content.js:
+const styles = {
+  myTeam: `...CSS for my-team page...`,
+  league: `...CSS for league page...`,
+  transfers: `...CSS for transfers page...`,
+  global: `...CSS for all pages...`
+};
 
-/* Border Radius on Header */
-header._7od82s0{
-    border-radius: 0px !important;
-}
+URL patterns that are currently supported:
+- /my-team or ends with /my-team
+- /leagues or /league/
+- /transfers or /transfer/
 
-ul.xjr7e60 {
-    border-bottom-left-radius: 0px !important;
-    border-bottom-right-radius: 0px !important;
-}
-
-/* Background colour behind tiles */
-div._16mjapo2 {
-    background-color: lightgray !important;
-}
-
-/* Reverse the order of the two main columns */
-div._16mjapo2 {
-    display: flex !important;
-    flex-direction: row-reverse !important;
-}
-
-/* Ensure the columns maintain their width */
-div._16mjapo2 > div {
-    flex: 1;
-}
+To add new URL patterns, edit the injectStylesForCurrentPage() function in content.js
+*/

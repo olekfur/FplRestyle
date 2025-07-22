@@ -12,7 +12,7 @@
   "content_scripts": [
     {
       "matches": ["https://fantasy.premierleague.com/*"],
-      "css": ["content.css"],
+      "js": ["content.js"],
       "run_at": "document_end"
     }
   ],
