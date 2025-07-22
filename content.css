@@ -9,3 +9,13 @@ nav.main-navigation-wrapper {
     padding-bottom: 0px !important;
 }
 
+/* Border Radius on Header */
+header._7od82s0{
+    border-radius: 0px !important;
+}
+
+ul.xjr7e60 {
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+}
+
