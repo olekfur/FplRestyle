@@ -24,3 +24,13 @@ div._16mjapo2 {
     background-color: lightgray !important;
 }
 
+/* Reverse the order of the two main columns */
+div._16mjapo2 {
+    display: flex !important;
+    flex-direction: row-reverse !important;
+}
+
+/* Ensure the columns maintain their width */
+div._16mjapo2 > div {
+    flex: 1;
+}
