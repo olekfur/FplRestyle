@@ -254,6 +254,8 @@ const styles = {
         flex: 0 0 40% !important; /* Fixed width for player selection section */
         max-width: 40% !important;
     }
+
+
   `,
 
   // Global styles that apply to all FPL pages
@@ -381,4 +383,98 @@ function handleUrlChange() {
     
     console.log('FPL Restyle: URL changed to', currentUrl);
   }
-} 
+}
+
+// Function to automatically apply filter changes on transfer page
+function setupAutoFilterApply() {
+  // Only run on transfer pages
+  if (!location.href.includes('/transfers') && !location.href.includes('/transfer/')) {
+    return;
+  }
+
+  // Function to watch for save button becoming enabled and click it
+  function watchSaveButton() {
+    const saveButton = document.querySelector('button._3zhh7p0._1hin72h0._1hin72h6._1hin72h2._1hin72h3._1hin72h5');
+    
+    if (saveButton && 
+        saveButton.textContent && 
+        saveButton.textContent.toLowerCase().includes('save changes')) {
+      
+      // Create a mutation observer to watch for changes to the button's disabled state
+      const buttonObserver = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (mutation.type === 'attributes' && 
+              (mutation.attributeName === 'disabled' || mutation.attributeName === 'data-disabled')) {
+            
+            const isDisabled = saveButton.disabled || saveButton.getAttribute('data-disabled') === 'true';
+            
+            if (!isDisabled) {
+              console.log('FPL Restyle: Save button became enabled, auto-clicking');
+              saveButton.click();
+            }
+          }
+        });
+      });
+      
+      // Start observing the save button
+      buttonObserver.observe(saveButton, {
+        attributes: true,
+        attributeFilter: ['disabled', 'data-disabled']
+      });
+      
+      console.log('FPL Restyle: Watching save button for enabled state');
+    }
+  }
+
+  // Function to observe DOM changes for new save buttons
+  function observeSaveButtons() {
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'childList') {
+          mutation.addedNodes.forEach((node) => {
+            if (node.nodeType === Node.ELEMENT_NODE) {
+              // Check if a save button was added
+              if (node.matches && node.matches('button._3zhh7p0._1hin72h0._1hin72h6._1hin72h2._1hin72h3._1hin72h5')) {
+                console.log('FPL Restyle: Save button detected, setting up watcher');
+                setTimeout(watchSaveButton, 100);
+              }
+              
+              // Also check if the node contains a save button
+              if (node.querySelector && node.querySelector('button._3zhh7p0._1hin72h0._1hin72h6._1hin72h2._1hin72h3._1hin72h5')) {
+                console.log('FPL Restyle: Save button found in added node, setting up watcher');
+                setTimeout(watchSaveButton, 100);
+              }
+            }
+          });
+        }
+      });
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+  }
+
+  // Set up the auto-apply functionality
+  observeSaveButtons();
+  
+  // Also check for existing save buttons
+  setTimeout(watchSaveButton, 100);
+  
+  console.log('FPL Restyle: Auto filter apply functionality enabled for transfer page');
+}
+
+// Run auto filter apply setup when page loads
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', setupAutoFilterApply);
+} else {
+  setupAutoFilterApply();
+}
+
+// Also run when URL changes (for SPA navigation)
+const originalHandleUrlChange = handleUrlChange;
+handleUrlChange = function() {
+  originalHandleUrlChange();
+  setTimeout(setupAutoFilterApply, 300); // Wait for new page to load
+}; 
