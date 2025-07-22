@@ -232,35 +232,33 @@ const styles = {
   // Transfers page styles (example for other pages)
   transfers: `
     /* Transfers page specific styles can go here */
+    /* Reverse the order of the two main columns */
+    div._16mjapo2 {
+        display: flex !important;
+        flex-direction: row-reverse !important;
+    }
 
+    /* Ensure the columns maintain their width */
+    div._16mjapo2 > div {
+        flex: 1;
+        min-width: 0; /* Allow flex items to shrink below their content size */
+    }
+
+    /* Set specific widths for the two main sections */
+    div._16mjapo2 > div._16mjapo4 {
+        flex: 0 0 60% !important; /* Fixed width for pitch section */
+        max-width: 60% !important;
+    }
+
+    div._16mjapo2 > div._16mjapo5 {
+        flex: 0 0 40% !important; /* Fixed width for player selection section */
+        max-width: 40% !important;
+    }
   `,
 
   // Global styles that apply to all FPL pages
   global: `
-    // /* Global FPL styles can go here */
-    // /* Hide Top Nav */
-    // div.top-nav {
-    //     display: none;
-    // }
-
-    // nav.main-navigation-wrapper {
-    //     padding-bottom: 0px !important;
-    // }
-
-    // /* Border Radius on Header */
-    // header._7od82s0{
-    //     border-radius: 0px !important;
-    // }
-
-    // ul.xjr7e60 {
-    //     border-bottom-left-radius: 0px !important;
-    //     border-bottom-right-radius: 0px !important;
-    // }
-
-    // /* Background colour behind tiles */
-    // div._16mjapo2 {
-    //     background-color: lightgray !important;
-    // }
+    /* Global FPL styles can go here */
   `
 };
 
